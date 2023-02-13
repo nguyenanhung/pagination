@@ -75,7 +75,7 @@ class SimplePagination extends BaseCore
 
         $output_html = '';
         if ($current_page_number !== 1) {
-            $output_html .= '<li class="' . trim($left_class) . '"><a href="' . trim($page_link) . trim($page_suffix) . '" title="' . trim($page_title) . '">' . trim($first_link) . '</a></li>';
+            $output_html .= '<li class="' . htmlEscape($left_class) . '"><a href="' . $this->trimHtmlEscape($page_link) . $this->trimHtmlEscape($page_suffix) . '" title="' . $this->trimHtmlEscape($page_title) . '">' . $this->trimHtmlEscape($first_link) . '</a></li>';
         }
 
         for ($page_number = 1; $page_number <= $total_page; $page_number++) {
@@ -84,17 +84,24 @@ class SimplePagination extends BaseCore
             }
 
             if ($page_number === $current_page_number) {
-                $output_html .= '<li class="' . trim($selected_class) . '"><a href="' . trim($page_link) . trim($page_prefix) . trim($page_number) . trim($page_suffix) . '" title="' . $page_title . ' ' . $default_page_title . ' ' . $page_number . '">' . $page_number . '</a></li>';
+                $output_html .= '<li class="' . htmlEscape($selected_class) . '"><a href="' . $this->trimHtmlEscape($page_link) . $this->trimHtmlEscape($page_prefix) . $this->trimHtmlEscape($page_number) . $this->trimHtmlEscape($page_suffix) . '" title="' . $this->trimHtmlEscape($page_title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($page_number) . '">' . $this->trimHtmlEscape($page_number) . '</a></li>';
             } else {
-                $output_html .= '<li><a href="' . trim($page_link) . trim($page_prefix) . trim($page_number) . trim($page_suffix) . '" title="' . $page_title . ' ' . $default_page_title . ' ' . $page_number . '">' . $page_number . '</a></li>';
+                $output_html .= '<li><a href="' . $this->trimHtmlEscape($page_link) . $this->trimHtmlEscape($page_prefix) . $this->trimHtmlEscape($page_number) . $this->trimHtmlEscape($page_suffix) . '" title="' . $this->trimHtmlEscape($page_title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($page_number) . '">' . $this->trimHtmlEscape($page_number) . '</a></li>';
             }
         }
         unset($page_number);
 
         if ($current_page_number !== $total_page) {
-            $output_html .= '<li class="' . trim($right_class) . '"><a href="' . trim($page_link) . trim($page_prefix) . trim($total_page) . trim($page_suffix) . '" title="' . trim($page_title) . ' - ' . $default_last_page_name_title . ' ">' . trim($last_link) . '</a></li>';
+            $output_html .= '<li class="' . htmlEscape($right_class) . '"><a href="' . $this->trimHtmlEscape($page_link) . $this->trimHtmlEscape($page_prefix) . $this->trimHtmlEscape($total_page) . $this->trimHtmlEscape($page_suffix) . '" title="' . $this->trimHtmlEscape($page_title) . ' - ' . $this->trimHtmlEscape($default_last_page_name_title) . ' ">' . $this->trimHtmlEscape($last_link) . '</a></li>';
         }
 
         return $output_html;
+    }
+
+    private function trimHtmlEscape($str)
+    {
+        $str = trim($str);
+
+        return htmlEscape($str);
     }
 }
