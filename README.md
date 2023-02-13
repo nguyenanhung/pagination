@@ -1,57 +1,13 @@
-[![Latest Stable Version](http://poser.pugx.org/nguyenanhung/template-php-lib/v)](https://packagist.org/packages/nguyenanhung/template-php-lib) [![Total Downloads](http://poser.pugx.org/nguyenanhung/template-php-lib/downloads)](https://packagist.org/packages/nguyenanhung/template-php-lib) [![Latest Unstable Version](http://poser.pugx.org/nguyenanhung/template-php-lib/v/unstable)](https://packagist.org/packages/nguyenanhung/template-php-lib) [![License](http://poser.pugx.org/nguyenanhung/template-php-lib/license)](https://packagist.org/packages/nguyenanhung/template-php-lib) [![PHP Version Require](http://poser.pugx.org/nguyenanhung/template-php-lib/require/php)](https://packagist.org/packages/nguyenanhung/template-php-lib)
+[![Latest Stable Version](http://poser.pugx.org/nguyenanhung/pagination/v)](https://packagist.org/packages/nguyenanhung/pagination) [![Total Downloads](http://poser.pugx.org/nguyenanhung/pagination/downloads)](https://packagist.org/packages/nguyenanhung/pagination) [![Latest Unstable Version](http://poser.pugx.org/nguyenanhung/pagination/v/unstable)](https://packagist.org/packages/nguyenanhung/pagination) [![License](http://poser.pugx.org/nguyenanhung/pagination/license)](https://packagist.org/packages/nguyenanhung/pagination) [![PHP Version Require](http://poser.pugx.org/nguyenanhung/pagination/require/php)](https://packagist.org/packages/nguyenanhung/pagination)
 
-# Template start helper, library
+# Pagination Helper
 
-Template for repository helper, library - Basic, Simple and Lightweight
+Pagination Helper, basic, simple and light
 
-## Use this Template
+## Version
 
-First, you can `Use this template` for new project: [Use this template](https://github.com/nguyenanhung/template-php-lib/generate)
-
-Second, clone your project to your to path in your machine
-
-Finally, your edit file `composer.json` in root folder of project
-
-```json
-{
-    "type": "library",
-    "name": "nguyenanhung/template-php-lib",
-    "description": "Template for repository helper, library - Basic, Simple and Lightweight",
-    "keywords": [
-        "template",
-        "helper",
-        "library",
-        "php"
-    ],
-    "homepage": "https://github.com/nguyenanhung/template-php-lib",
-    "license": "MIT",
-    "minimum-stability": "stable",
-    "authors": [
-        {
-            "name": "Nguyen An Hung",
-            "email": "dev@nguyenanhung.com",
-            "homepage": "https://nguyenanhung.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": ">=5.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "nguyenanhung\\Libraries\\REPLACE_FOR_YOUR\\": "src/"
-        },
-        "files": [
-            "helpers/helpers.php"
-        ]
-    }
-}
-
-```
-
-Replace name space `REPLACE_FOR_YOUR` to Library space, example: `JSON`. After change namespace, project namespace same `"nguyenanhung\\Libraries\\JSON\\": "src/"`
-
-Finished, your can writing new awesome helper and library now time.
+- [x] V1.x support all PHP version `>=5.6`
+- [x] V2.x support all PHP version `>=7.0`
 
 ## Contact & Support
 
