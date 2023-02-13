@@ -25,7 +25,7 @@ class SimplePagination extends BaseCore
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 13/02/2023 15:59
      */
-    public function setData($data)
+    public function setData($data): self
     {
         $this->data = $data;
 
@@ -42,22 +42,22 @@ class SimplePagination extends BaseCore
      */
     public function build()
     {
-        $page_link = isset($this->data['page_link']) ? $this->data['page_link'] : '';
-        $page_title = isset($this->data['page_title']) ? $this->data['page_title'] : '';
-        $page_prefix = isset($this->data['page_prefix']) ? $this->data['page_prefix'] : '';
-        $page_suffix = isset($this->data['page_suffix']) ? $this->data['page_suffix'] : '';
-        $current_page_number = isset($this->data['current_page_number']) ? $this->data['current_page_number'] : 1;
-        $total_item = isset($this->data['total_item']) ? $this->data['total_item'] : 0;
-        $item_per_page = isset($this->data['item_per_page']) ? $this->data['item_per_page'] : 10;
-        $begin = isset($this->data['pre_rows']) ? $this->data['pre_rows'] : 3;
-        $end = isset($this->data['suf_rows']) ? $this->data['suf_rows'] : 3;
-        $first_link = isset($this->data['first_link']) ? $this->data['first_link'] : '&nbsp;';
-        $last_link = isset($this->data['last_link']) ? $this->data['last_link'] : '&nbsp;';
-        $default_page_title = isset($this->data['default_page_title']) ? $this->data['default_page_title'] : 'trang';
-        $default_last_page_name_title = isset($this->data['default_last_page_name_title']) ? $this->data['default_last_page_name_title'] : 'trang cuối';
-        $left_class = isset($this->data['left_class']) ? $this->data['left_class'] : 'left';
-        $right_class = isset($this->data['right_class']) ? $this->data['right_class'] : 'right';
-        $selected_class = isset($this->data['selected_class']) ? $this->data['selected_class'] : 'selected';
+        $page_link = $this->data['page_link'] ?? '';
+        $page_title = $this->data['page_title'] ?? '';
+        $page_prefix = $this->data['page_prefix'] ?? '';
+        $page_suffix = $this->data['page_suffix'] ?? '';
+        $current_page_number = $this->data['current_page_number'] ?? 1;
+        $total_item = $this->data['total_item'] ?? 0;
+        $item_per_page = $this->data['item_per_page'] ?? 10;
+        $begin = $this->data['pre_rows'] ?? 3;
+        $end = $this->data['suf_rows'] ?? 3;
+        $first_link = $this->data['first_link'] ?? '&nbsp;';
+        $last_link = $this->data['last_link'] ?? '&nbsp;';
+        $default_page_title = $this->data['default_page_title'] ?? 'trang';
+        $default_last_page_name_title = $this->data['default_last_page_name_title'] ?? 'trang cuối';
+        $left_class = $this->data['left_class'] ?? 'left';
+        $right_class = $this->data['right_class'] ?? 'right';
+        $selected_class = $this->data['selected_class'] ?? 'selected';
 
         /**
          * Kiểm tra giá trị page_number truyền vào
@@ -98,7 +98,7 @@ class SimplePagination extends BaseCore
         return $output_html;
     }
 
-    private function trimHtmlEscape($str)
+    private function trimHtmlEscape($str): string
     {
         $str = trim($str);
 
