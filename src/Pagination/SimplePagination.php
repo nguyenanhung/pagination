@@ -98,6 +98,189 @@ class SimplePagination extends BaseCore
         return $output_html;
     }
 
+    /**
+     * Function buildViewMore
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 14/02/2023 08:11
+     */
+    public function buildViewMore()
+    {
+        $page_number = isset($this->data['page_number']) ? $this->data['page_number'] : '';
+        $page_total = isset($this->data['total_item']) ? $this->data['total_item'] : 0;
+        $page_size = isset($this->data['item_per_page']) ? $this->data['item_per_page'] : 10;
+        $url = isset($this->data['page_link']) ? $this->data['page_link'] : '';
+        $title = isset($this->data['page_title']) ? $this->data['page_title'] : '';
+        $more_type = isset($this->data['page_type']) ? $this->data['page_type'] : '';
+        $default_page_prefix = isset($this->data['default_page_prefix']) ? $this->data['default_page_prefix'] : 'trang-';
+        $default_page_title = isset($this->data['default_page_title']) ? $this->data['default_page_title'] : 'trang';
+        $default_page_title_more = isset($this->data['default_page_title_more']) ? $this->data['default_page_title_more'] : 'Xem thêm';
+        $default_page_title_prev = isset($this->data['default_page_title_prev']) ? $this->data['default_page_title_prev'] : 'Trang trước';
+
+        $is_total = ceil($page_total / $page_size);
+        if ($is_total <= 1) {
+            return '';
+        }
+
+        if ($is_total === $page_number) {
+            $back_page = $page_number - 1;
+            if ($more_type === 'search') {
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . '&page=' . $this->trimHtmlEscape($back_page) . '">' . $this->trimHtmlEscape($default_page_title_prev) . '</a>';
+            } else {
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . '/' . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($back_page) . '.html">' . $this->trimHtmlEscape($default_page_title_prev) . '</a>';
+            }
+        } else {
+            if (!empty($page_number) && $page_number !== 0) {
+                $next_page = $page_number + 1;
+            } else {
+                $next_page = $page_number + 2;
+            }
+            if ($more_type === 'search') {
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . '&page=' . $this->trimHtmlEscape($next_page) . '">' . $this->trimHtmlEscape($default_page_title_more) . '</a>';
+            } else {
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . '/' . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($next_page) . '.html">' . $this->trimHtmlEscape($default_page_title_more) . '</a>';
+            }
+        }
+
+        return $main;
+    }
+
+    /**
+     * Function buildSelectPage
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 14/02/2023 10:46
+     */
+    public function buildSelectPage()
+    {
+        $page_number = isset($this->data['page_number']) ? $this->data['page_number'] : '';
+        $total_rows = isset($this->data['total_item']) ? $this->data['total_item'] : 0;
+        $per_page = isset($this->data['item_per_page']) ? $this->data['item_per_page'] : 10;
+        $page_links = isset($this->data['page_link']) ? $this->data['page_link'] : '';
+        $title = isset($this->data['page_title']) ? $this->data['page_title'] : '';
+        $type = isset($this->data['page_type']) ? $this->data['page_type'] : '';
+        $default_page_title = isset($this->data['default_page_title']) ? $this->data['default_page_title'] : 'trang';
+        $default_last_page_name_title = isset($this->data['default_last_page_name_title']) ? $this->data['default_last_page_name_title'] : 'Trang cuối';
+        $left_class = isset($this->data['left_class']) ? $this->data['left_class'] : 'left';
+        $right_class = isset($this->data['right_class']) ? $this->data['right_class'] : 'right';
+        $selected_class = isset($this->data['selected_class']) ? $this->data['selected_class'] : 'selected';
+        /**
+         * ----------------------------------------------
+         * Kiểm tra giá trị page_number truyền vào
+         * Nếu ko có giá trị hoặc giá trị = 0 -> set giá trị = 1
+         * ----------------------------------------------
+         */
+        if (empty($page_number)) {
+            $page_number = 1;
+        }
+        /**
+         * ----------------------------------------------
+         * Tính tổng số page có
+         * ----------------------------------------------
+         */
+        $total = ceil($total_rows / $per_page);
+        $main = '';
+        if ($total <= 1) {
+            return '';
+        }
+        if ($page_number !== 1) {
+            if ($type === 'select_page') {
+                $main .= "<li class=\"" . htmlEscape($left_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . ".html\" title=\"" . $this->trimHtmlEscape($title) . "\">&nbsp;</a></li>";
+            } else {
+                $main .= "";
+            }
+        }
+        for ($num = 1; $num <= $total; $num++) {
+            if ($num === $page_number) {
+                if ($type === 'select_page') {
+                    $main .= "<li class=\"" . htmlEscape($selected_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . "/trang-" . $this->trimHtmlEscape($num) . ".html\" title=\"" . $this->trimHtmlEscape($title) . " " . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $this->trimHtmlEscape($num) . "\">" . $this->trimHtmlEscape($num) . "</a></li>";
+                } else {
+                    $main .= "<option selected value=\"" . $num . "\">" . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $num . "</option>";
+                }
+            } else {
+                if ($type === 'select_page') {
+                    $main .= "<li><a href=\"" . $this->trimHtmlEscape($page_links) . "/trang-" . $num . ".html\" title=\"" . $this->trimHtmlEscape($title) . " " . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $this->trimHtmlEscape($num) . "\">" . $this->trimHtmlEscape($num) . "</a></li>";
+                } else {
+                    $main .= "<option value=\"" . $num . "\">" . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $num . "</option>";
+                }
+            }
+        }
+        unset($num);
+        if ($page_number !== $total) {
+            if ($type === 'select_page') {
+                $main .= "<li class=\"" . htmlEscape($right_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . "/trang-" . $total . ".html\" title=\"" . $this->trimHtmlEscape($title) . " trang cuối\">&nbsp;</a></li>";
+            } else {
+                $main .= "<option value=\"" . $total . "\">" . $this->trimHtmlEscape($default_last_page_name_title) . "</option>";
+            }
+        }
+
+        return $main;
+    }
+
+    /**
+     * Function cleanPaginationUrl
+     *
+     * @param string $str
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/09/2021 17:10
+     */
+    public function cleanPaginationUrl($str = '')
+    {
+        $str = str_replace(array('trang-', 'Trang-', '/page/'), '', $str);
+
+        return trim($str);
+    }
+
+    /**
+     * Function getPageNumber
+     *
+     * @param $str
+     *
+     * @return int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 13/02/2023 59:30
+     */
+    public function getPageNumber($str = '')
+    {
+        $str = str_replace('trang-', '', $str);
+
+        return (int) $str;
+    }
+
+    /**
+     * Function getPaginationsTitle
+     *
+     * @param $str
+     *
+     * @return array|string|string[]
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 13/02/2023 59:06
+     */
+    public function getPaginationsTitle($str)
+    {
+        return str_replace('trang-', 'Trang ', $str);
+    }
+
+    /**************************************************************/
+    /**
+     * Function trimHtmlEscape
+     *
+     * @param $str
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 13/02/2023 56:48
+     */
     private function trimHtmlEscape($str)
     {
         $str = trim($str);
