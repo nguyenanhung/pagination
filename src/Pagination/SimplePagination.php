@@ -47,6 +47,7 @@ class SimplePagination extends BaseCore
         $page_prefix = $this->data['page_prefix'] ?? '';
         $page_suffix = $this->data['page_suffix'] ?? '';
         $current_page_number = $this->data['current_page_number'] ?? 1;
+        $current_page_number = (int) $current_page_number;
         $total_item = $this->data['total_item'] ?? 0;
         $item_per_page = $this->data['item_per_page'] ?? 10;
         $begin = $this->data['pre_rows'] ?? 3;
@@ -108,7 +109,8 @@ class SimplePagination extends BaseCore
      */
     public function buildViewMore(): string
     {
-        $page_number = $this->data['page_number'] ?? '';
+        $page_number = $this->data['page_number'] ?? 1;
+        $page_number = (int) $page_number;
         $page_total = $this->data['total_item'] ?? 0;
         $page_size = $this->data['item_per_page'] ?? 10;
         $url = $this->data['page_link'] ?? '';
@@ -157,7 +159,8 @@ class SimplePagination extends BaseCore
      */
     public function buildSelectPage(): string
     {
-        $page_number = $this->data['page_number'] ?? '';
+        $page_number = $this->data['page_number'] ?? 1;
+        $page_number = (int) $page_number;
         $total_rows = $this->data['total_item'] ?? 0;
         $per_page = $this->data['item_per_page'] ?? 10;
         $page_links = $this->data['page_link'] ?? '';
