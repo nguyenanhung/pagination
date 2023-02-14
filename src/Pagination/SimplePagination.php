@@ -42,10 +42,18 @@ class SimplePagination extends BaseCore
      */
     public function build()
     {
+        $page_type = isset($this->data['page_type']) ? $this->data['page_type'] : '';
+        if ($page_type === 'search_page' || $page_type === 'search') {
+            $defaultPrefix = '&page=';
+            $defaultSuffix = '';
+        } else {
+            $defaultPrefix = '/trang-';
+            $defaultSuffix = '.html';
+        }
+        $page_prefix = isset($this->data['page_prefix']) ? $this->data['page_prefix'] : $defaultPrefix;
+        $page_suffix = isset($this->data['page_suffix']) ? $this->data['page_suffix'] : $defaultSuffix;
         $page_link = isset($this->data['page_link']) ? $this->data['page_link'] : '';
         $page_title = isset($this->data['page_title']) ? $this->data['page_title'] : '';
-        $page_prefix = isset($this->data['page_prefix']) ? $this->data['page_prefix'] : '';
-        $page_suffix = isset($this->data['page_suffix']) ? $this->data['page_suffix'] : '';
         $current_page_number = isset($this->data['current_page_number']) ? $this->data['current_page_number'] : 1;
         $current_page_number = (int) $current_page_number;
         $total_item = isset($this->data['total_item']) ? $this->data['total_item'] : 0;
@@ -76,7 +84,7 @@ class SimplePagination extends BaseCore
 
         $output_html = '';
         if ($current_page_number !== 1) {
-            $output_html .= '<li class="' . htmlEscape($left_class) . '"><a href="' . $this->trimHtmlEscape($page_link) . $this->trimHtmlEscape($page_suffix) . '" title="' . $this->trimHtmlEscape($page_title) . '">' .trim($first_link) . '</a></li>';
+            $output_html .= '<li class="' . htmlEscape($left_class) . '"><a href="' . $this->trimHtmlEscape($page_link) . $this->trimHtmlEscape($page_suffix) . '" title="' . $this->trimHtmlEscape($page_title) . '">' . trim($first_link) . '</a></li>';
         }
 
         for ($page_number = 1; $page_number <= $total_page; $page_number++) {
@@ -116,11 +124,18 @@ class SimplePagination extends BaseCore
         $url = isset($this->data['page_link']) ? $this->data['page_link'] : '';
         $title = isset($this->data['page_title']) ? $this->data['page_title'] : '';
         $more_type = isset($this->data['page_type']) ? $this->data['page_type'] : '';
-        $default_page_prefix = isset($this->data['default_page_prefix']) ? $this->data['default_page_prefix'] : 'trang-';
+        if ($more_type === 'search' || $more_type === 'search_page') {
+            $defaultPrefix = '&page=';
+            $defaultSuffix = '';
+        } else {
+            $defaultPrefix = '/trang-';
+            $defaultSuffix = '.html';
+        }
+        $default_page_prefix = isset($this->data['page_prefix']) ? $this->data['page_prefix'] : $defaultPrefix;
+        $default_page_suffix = isset($this->data['page_suffix']) ? $this->data['page_suffix'] : $defaultSuffix;
         $default_page_title = isset($this->data['default_page_title']) ? $this->data['default_page_title'] : 'trang';
         $default_page_title_more = isset($this->data['default_page_title_more']) ? $this->data['default_page_title_more'] : 'Xem thêm';
         $default_page_title_prev = isset($this->data['default_page_title_prev']) ? $this->data['default_page_title_prev'] : 'Trang trước';
-
         $is_total = ceil($page_total / $page_size);
         if ($is_total <= 1) {
             return '';
@@ -129,9 +144,9 @@ class SimplePagination extends BaseCore
         if ($is_total === $page_number) {
             $back_page = $page_number - 1;
             if ($more_type === 'search') {
-                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . '&page=' . $this->trimHtmlEscape($back_page) . '">' . trim($default_page_title_prev) . '</a>';
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($back_page) . '">' . trim($default_page_title_prev) . '</a>';
             } else {
-                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . '/' . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($back_page) . '.html">' . trim($default_page_title_prev) . '</a>';
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . '/' . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($back_page) . $this->trimHtmlEscape($default_page_suffix) . '">' . trim($default_page_title_prev) . '</a>';
             }
         } else {
             if (!empty($page_number) && $page_number !== 0) {
@@ -140,9 +155,9 @@ class SimplePagination extends BaseCore
                 $next_page = $page_number + 2;
             }
             if ($more_type === 'search') {
-                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . '&page=' . $this->trimHtmlEscape($next_page) . '">' . trim($default_page_title_more) . '</a>';
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($next_page) . '">' . trim($default_page_title_more) . '</a>';
             } else {
-                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . '/' . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($next_page) . '.html">' . trim($default_page_title_more) . '</a>';
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . '/' . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($next_page) . $this->trimHtmlEscape($default_page_suffix) . '">' . trim($default_page_title_more) . '</a>';
             }
         }
 
@@ -166,6 +181,15 @@ class SimplePagination extends BaseCore
         $page_links = isset($this->data['page_link']) ? $this->data['page_link'] : '';
         $title = isset($this->data['page_title']) ? $this->data['page_title'] : '';
         $type = isset($this->data['page_type']) ? $this->data['page_type'] : '';
+        if ($type === 'search' || $type === 'search_page') {
+            $defaultPrefix = '&page=';
+            $defaultSuffix = '';
+        } else {
+            $defaultPrefix = '/trang-';
+            $defaultSuffix = '.html';
+        }
+        $default_page_prefix = isset($this->data['page_prefix']) ? $this->data['page_prefix'] : $defaultPrefix;
+        $default_page_suffix = isset($this->data['page_suffix']) ? $this->data['page_suffix'] : $defaultSuffix;
         $default_page_title = isset($this->data['default_page_title']) ? $this->data['default_page_title'] : 'trang';
         $default_last_page_name_title = isset($this->data['default_last_page_name_title']) ? $this->data['default_last_page_name_title'] : 'Trang cuối';
         $left_class = isset($this->data['left_class']) ? $this->data['left_class'] : 'left';
@@ -192,7 +216,7 @@ class SimplePagination extends BaseCore
         }
         if ($page_number !== 1) {
             if ($type === 'select_page') {
-                $main .= "<li class=\"" . htmlEscape($left_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . ".html\" title=\"" . $this->trimHtmlEscape($title) . "\">&nbsp;</a></li>";
+                $main .= "<li class=\"" . htmlEscape($left_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . $this->trimHtmlEscape($default_page_suffix) . "\" title=\"" . $this->trimHtmlEscape($title) . "\">&nbsp;</a></li>";
             } else {
                 $main .= "";
             }
@@ -200,13 +224,13 @@ class SimplePagination extends BaseCore
         for ($num = 1; $num <= $total; $num++) {
             if ($num === $page_number) {
                 if ($type === 'select_page') {
-                    $main .= "<li class=\"" . htmlEscape($selected_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . "/trang-" . $this->trimHtmlEscape($num) . ".html\" title=\"" . $this->trimHtmlEscape($title) . " " . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $this->trimHtmlEscape($num) . "\">" . $this->trimHtmlEscape($num) . "</a></li>";
+                    $main .= "<li class=\"" . htmlEscape($selected_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) .  $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($num) . $this->trimHtmlEscape($default_page_suffix) . "\" title=\"" . $this->trimHtmlEscape($title) . " " . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $this->trimHtmlEscape($num) . "\">" . $this->trimHtmlEscape($num) . "</a></li>";
                 } else {
                     $main .= "<option selected value=\"" . $num . "\">" . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $num . "</option>";
                 }
             } else {
                 if ($type === 'select_page') {
-                    $main .= "<li><a href=\"" . $this->trimHtmlEscape($page_links) . "/trang-" . $num . ".html\" title=\"" . $this->trimHtmlEscape($title) . " " . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $this->trimHtmlEscape($num) . "\">" . $this->trimHtmlEscape($num) . "</a></li>";
+                    $main .= "<li><a href=\"" . $this->trimHtmlEscape($page_links) . $this->trimHtmlEscape($default_page_prefix) . $num . $this->trimHtmlEscape($default_page_suffix) . "\" title=\"" . $this->trimHtmlEscape($title) . " " . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $this->trimHtmlEscape($num) . "\">" . $this->trimHtmlEscape($num) . "</a></li>";
                 } else {
                     $main .= "<option value=\"" . $num . "\">" . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $num . "</option>";
                 }
@@ -215,7 +239,7 @@ class SimplePagination extends BaseCore
         unset($num);
         if ($page_number !== $total) {
             if ($type === 'select_page') {
-                $main .= "<li class=\"" . htmlEscape($right_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . "/trang-" . $total . ".html\" title=\"" . $this->trimHtmlEscape($title) . " trang cuối\">&nbsp;</a></li>";
+                $main .= "<li class=\"" . htmlEscape($right_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . $this->trimHtmlEscape($default_page_prefix) . $total . $this->trimHtmlEscape($default_page_suffix) . "\" title=\"" . $this->trimHtmlEscape($title) . " trang cuối\">&nbsp;</a></li>";
             } else {
                 $main .= "<option value=\"" . $total . "\">" . $this->trimHtmlEscape($default_last_page_name_title) . "</option>";
             }
