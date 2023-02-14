@@ -129,7 +129,7 @@ class SimplePagination extends BaseCore
         if ($is_total === $page_number) {
             $back_page = $page_number - 1;
             if ($more_type === 'search') {
-                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . '&page=' . $this->trimHtmlEscape($back_page) . '">' . $this->trimHtmlEscape($default_page_title_prev) . '</a>';
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . '&page=' . $this->trimHtmlEscape($back_page) . '">' . trim($default_page_title_prev) . '</a>';
             } else {
                 $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . '/' . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($back_page) . '.html">' . trim($default_page_title_prev) . '</a>';
             }
@@ -140,7 +140,7 @@ class SimplePagination extends BaseCore
                 $next_page = $page_number + 2;
             }
             if ($more_type === 'search') {
-                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . '&page=' . $this->trimHtmlEscape($next_page) . '">' . $this->trimHtmlEscape($default_page_title_more) . '</a>';
+                $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . '&page=' . $this->trimHtmlEscape($next_page) . '">' . trim($default_page_title_more) . '</a>';
             } else {
                 $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($next_page) . '" href="' . $this->trimHtmlEscape($url) . '/' . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($next_page) . '.html">' . trim($default_page_title_more) . '</a>';
             }
