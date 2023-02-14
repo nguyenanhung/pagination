@@ -12,7 +12,7 @@ namespace nguyenanhung\Libraries\Pagination\Pagination;
 
 class BaseCore
 {
-    const VERSION = '1.0.2';
+    const VERSION = '1.0.3';
 
     public function getVersion()
     {
