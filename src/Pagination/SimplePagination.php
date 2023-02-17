@@ -35,10 +35,10 @@ class SimplePagination extends BaseCore
     /**
      * Function build
      *
-     * @return string|null
+     * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 13/02/2023 24:22
+     * @time     : 17/02/2023 17:00
      */
     public function build()
     {
@@ -57,9 +57,13 @@ class SimplePagination extends BaseCore
         $current_page_number = isset($this->data['current_page_number']) ? $this->data['current_page_number'] : 1;
         $current_page_number = (int) $current_page_number;
         $total_item = isset($this->data['total_item']) ? $this->data['total_item'] : 0;
+        $total_item = (int) $total_item;
         $item_per_page = isset($this->data['item_per_page']) ? $this->data['item_per_page'] : 10;
+        $item_per_page = (int) $item_per_page;
         $begin = isset($this->data['pre_rows']) ? $this->data['pre_rows'] : 3;
+        $begin = (int) $begin;
         $end = isset($this->data['suf_rows']) ? $this->data['suf_rows'] : 3;
+        $end = (int) $end;
         $first_link = isset($this->data['first_link']) ? $this->data['first_link'] : '&nbsp;';
         $last_link = isset($this->data['last_link']) ? $this->data['last_link'] : '&nbsp;';
         $default_page_title = isset($this->data['default_page_title']) ? $this->data['default_page_title'] : 'trang';
@@ -79,7 +83,7 @@ class SimplePagination extends BaseCore
         // Tính tổng số page có
         $total_page = ceil($total_item / $item_per_page);
         if ($total_page <= 1) {
-            return null;
+            return '';
         }
 
         $output_html = '';
@@ -120,7 +124,9 @@ class SimplePagination extends BaseCore
         $page_number = isset($this->data['page_number']) ? $this->data['page_number'] : 1;
         $page_number = (int) $page_number;
         $page_total = isset($this->data['total_item']) ? $this->data['total_item'] : 0;
+        $page_total = (int) $page_total;
         $page_size = isset($this->data['item_per_page']) ? $this->data['item_per_page'] : 10;
+        $page_size = (int) $page_size;
         $url = isset($this->data['page_link']) ? $this->data['page_link'] : '';
         $title = isset($this->data['page_title']) ? $this->data['page_title'] : '';
         $more_type = isset($this->data['page_type']) ? $this->data['page_type'] : '';
@@ -177,7 +183,9 @@ class SimplePagination extends BaseCore
         $page_number = isset($this->data['page_number']) ? $this->data['page_number'] : 1;
         $page_number = (int) $page_number;
         $total_rows = isset($this->data['total_item']) ? $this->data['total_item'] : 0;
+        $total_rows = (int) $total_rows;
         $per_page = isset($this->data['item_per_page']) ? $this->data['item_per_page'] : 10;
+        $per_page = (int) $per_page;
         $page_links = isset($this->data['page_link']) ? $this->data['page_link'] : '';
         $title = isset($this->data['page_title']) ? $this->data['page_title'] : '';
         $type = isset($this->data['page_type']) ? $this->data['page_type'] : '';
@@ -224,7 +232,7 @@ class SimplePagination extends BaseCore
         for ($num = 1; $num <= $total; $num++) {
             if ($num === $page_number) {
                 if ($type === 'select_page') {
-                    $main .= "<li class=\"" . htmlEscape($selected_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) .  $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($num) . $this->trimHtmlEscape($default_page_suffix) . "\" title=\"" . $this->trimHtmlEscape($title) . " " . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $this->trimHtmlEscape($num) . "\">" . $this->trimHtmlEscape($num) . "</a></li>";
+                    $main .= "<li class=\"" . htmlEscape($selected_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($num) . $this->trimHtmlEscape($default_page_suffix) . "\" title=\"" . $this->trimHtmlEscape($title) . " " . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $this->trimHtmlEscape($num) . "\">" . $this->trimHtmlEscape($num) . "</a></li>";
                 } else {
                     $main .= "<option selected value=\"" . $num . "\">" . ucfirst($this->trimHtmlEscape($default_page_title)) . " " . $num . "</option>";
                 }
