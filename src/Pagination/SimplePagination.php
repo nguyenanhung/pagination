@@ -35,12 +35,12 @@ class SimplePagination extends BaseCore
     /**
      * Function build
      *
-     * @return string|null
+     * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 13/02/2023 24:22
+     * @time     : 17/02/2023 18:50
      */
-    public function build()
+    public function build(): string
     {
         $page_type = $this->data['page_type'] ?? '';
         if ($page_type === 'search_page' || $page_type === 'search') {
@@ -57,9 +57,13 @@ class SimplePagination extends BaseCore
         $current_page_number = $this->data['current_page_number'] ?? 1;
         $current_page_number = (int) $current_page_number;
         $total_item = $this->data['total_item'] ?? 0;
+        $total_item = (int) $total_item;
         $item_per_page = $this->data['item_per_page'] ?? 10;
+        $item_per_page = (int) $item_per_page;
         $begin = $this->data['pre_rows'] ?? 3;
+        $begin = (int) $begin;
         $end = $this->data['suf_rows'] ?? 3;
+        $end = (int) $end;
         $first_link = $this->data['first_link'] ?? '&nbsp;';
         $last_link = $this->data['last_link'] ?? '&nbsp;';
         $default_page_title = $this->data['default_page_title'] ?? 'trang';
@@ -79,7 +83,7 @@ class SimplePagination extends BaseCore
         // Tính tổng số page có
         $total_page = ceil($total_item / $item_per_page);
         if ($total_page <= 1) {
-            return null;
+            return '';
         }
 
         $output_html = '';
@@ -120,7 +124,9 @@ class SimplePagination extends BaseCore
         $page_number = $this->data['page_number'] ?? 1;
         $page_number = (int) $page_number;
         $page_total = $this->data['total_item'] ?? 0;
+        $page_total = (int) $page_total;
         $page_size = $this->data['item_per_page'] ?? 10;
+        $page_size = (int) $page_size;
         $url = $this->data['page_link'] ?? '';
         $title = $this->data['page_title'] ?? '';
         $more_type = $this->data['page_type'] ?? '';
@@ -141,7 +147,7 @@ class SimplePagination extends BaseCore
             return '';
         }
 
-        if ($is_total === $page_number) {
+        if ($is_total == $page_number) {
             $back_page = $page_number - 1;
             if ($more_type === 'search') {
                 $main = '<a title="' . $this->trimHtmlEscape($title) . ' ' . $this->trimHtmlEscape($default_page_title) . ' ' . $this->trimHtmlEscape($back_page) . '" href="' . $this->trimHtmlEscape($url) . $this->trimHtmlEscape($default_page_prefix) . $this->trimHtmlEscape($back_page) . '">' . trim($default_page_title_prev) . '</a>';
@@ -177,7 +183,9 @@ class SimplePagination extends BaseCore
         $page_number = $this->data['page_number'] ?? 1;
         $page_number = (int) $page_number;
         $total_rows = $this->data['total_item'] ?? 0;
+        $total_rows = (int) $total_rows;
         $per_page = $this->data['item_per_page'] ?? 10;
+        $per_page = (int) $per_page;
         $page_links = $this->data['page_link'] ?? '';
         $title = $this->data['page_title'] ?? '';
         $type = $this->data['page_type'] ?? '';
