@@ -104,7 +104,7 @@ class SimplePagination extends BaseCore
         }
         unset($page_number);
 
-        if ($current_page_number !== $total_page) {
+        if ($current_page_number <> $total_page) {
             $output_html .= '<li class="' . htmlEscape($right_class) . '"><a href="' . $this->trimHtmlEscape($page_link) . $this->trimHtmlEscape($page_prefix) . $this->trimHtmlEscape($total_page) . $this->trimHtmlEscape($page_suffix) . '" title="' . $this->trimHtmlEscape($page_title) . ' - ' . $this->trimHtmlEscape($default_last_page_name_title) . ' ">' . trim($last_link) . '</a></li>';
         }
 
@@ -245,7 +245,7 @@ class SimplePagination extends BaseCore
             }
         }
         unset($num);
-        if ($page_number !== $total) {
+        if ($page_number <> $total) {
             if ($type === 'select_page') {
                 $main .= "<li class=\"" . htmlEscape($right_class) . "\"><a href=\"" . $this->trimHtmlEscape($page_links) . $this->trimHtmlEscape($default_page_prefix) . $total . $this->trimHtmlEscape($default_page_suffix) . "\" title=\"" . $this->trimHtmlEscape($title) . " trang cuối\">&nbsp;</a></li>";
             } else {
