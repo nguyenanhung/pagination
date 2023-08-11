@@ -28,7 +28,6 @@ class SimplePagination extends BaseCore
     public function setData($data): SimplePagination
     {
         $this->data = $data;
-
         return $this;
     }
 
@@ -269,7 +268,6 @@ class SimplePagination extends BaseCore
     public function cleanPaginationUrl(string $str = ''): string
     {
         $str = str_replace(array('trang-', 'Trang-', '/page/'), '', $str);
-
         return trim($str);
     }
 
@@ -286,7 +284,6 @@ class SimplePagination extends BaseCore
     public function getPageNumber(string $str = ''): int
     {
         $str = str_replace('trang-', '', $str);
-
         return (int) $str;
     }
 
@@ -319,7 +316,6 @@ class SimplePagination extends BaseCore
     private function trimHtmlEscape($str): string
     {
         $str = trim($str);
-
         return htmlEscape($str);
     }
 }
