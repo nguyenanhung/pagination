@@ -145,7 +145,7 @@ class SimplePagination extends BaseCore
             $defaultPrefix = '&page=';
             $defaultSuffix = '';
         } else {
-            $defaultPrefix = '/trang-';
+            $defaultPrefix = 'trang-';
             $defaultSuffix = '.html';
         }
         $default_page_prefix = $this->data['page_prefix'] ?? $defaultPrefix;
