@@ -53,7 +53,13 @@ class SimplePagination extends BaseCore
         $page_suffix = $this->data['page_suffix'] ?? $defaultSuffix;
         $page_link = $this->data['page_link'] ?? '';
         $page_title = $this->data['page_title'] ?? '';
-        $current_page_number = $this->data['current_page_number'] ?? 1;
+        if (isset($this->data['page_number'])) {
+            $current_page_number = $this->data['page_number'];
+        } elseif (isset($this->data['current_page_number'])) {
+            $current_page_number = $this->data['current_page_number'];
+        } else {
+            $current_page_number = 1;
+        }
         $current_page_number = (int) $current_page_number;
         $total_item = $this->data['total_item'] ?? 0;
         $total_item = (int) $total_item;
@@ -120,7 +126,13 @@ class SimplePagination extends BaseCore
      */
     public function buildViewMore(): string
     {
-        $page_number = $this->data['page_number'] ?? 1;
+        if (isset($this->data['page_number'])) {
+            $page_number = $this->data['page_number'];
+        } elseif (isset($this->data['current_page_number'])) {
+            $page_number = $this->data['current_page_number'];
+        } else {
+            $page_number = 1;
+        }
         $page_number = (int) $page_number;
         $page_total = $this->data['total_item'] ?? 0;
         $page_total = (int) $page_total;
@@ -179,7 +191,13 @@ class SimplePagination extends BaseCore
      */
     public function buildSelectPage(): string
     {
-        $page_number = $this->data['page_number'] ?? 1;
+        if (isset($this->data['page_number'])) {
+            $page_number = $this->data['page_number'];
+        } elseif (isset($this->data['current_page_number'])) {
+            $page_number = $this->data['current_page_number'];
+        } else {
+            $page_number = 1;
+        }
         $page_number = (int) $page_number;
         $total_rows = $this->data['total_item'] ?? 0;
         $total_rows = (int) $total_rows;
