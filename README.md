@@ -1,4 +1,9 @@
-[![Latest Stable Version](http://poser.pugx.org/nguyenanhung/pagination/v)](https://packagist.org/packages/nguyenanhung/pagination) [![Total Downloads](http://poser.pugx.org/nguyenanhung/pagination/downloads)](https://packagist.org/packages/nguyenanhung/pagination) [![Latest Unstable Version](http://poser.pugx.org/nguyenanhung/pagination/v/unstable)](https://packagist.org/packages/nguyenanhung/pagination) [![License](http://poser.pugx.org/nguyenanhung/pagination/license)](https://packagist.org/packages/nguyenanhung/pagination) [![PHP Version Require](http://poser.pugx.org/nguyenanhung/pagination/require/php)](https://packagist.org/packages/nguyenanhung/pagination)
+[![Latest Stable Version](https://img.shields.io/packagist/v/nguyenanhung/pagination.svg?style=flat-square)](https://packagist.org/packages/nguyenanhung/pagination)
+[![Total Downloads](https://img.shields.io/packagist/dt/nguyenanhung/pagination.svg?style=flat-square)](https://packagist.org/packages/nguyenanhung/pagination)
+[![Daily Downloads](https://img.shields.io/packagist/dd/nguyenanhung/pagination.svg?style=flat-square)](https://packagist.org/packages/nguyenanhung/pagination)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/nguyenanhung/pagination.svg?style=flat-square)](https://packagist.org/packages/nguyenanhung/pagination)
+[![License](https://img.shields.io/packagist/l/nguyenanhung/pagination.svg?style=flat-square)](https://packagist.org/packages/nguyenanhung/pagination)
+[![PHP Version Require](https://img.shields.io/packagist/dependency-v/nguyenanhung/pagination/php)](https://packagist.org/packages/nguyenanhung/pagination)
 
 # Pagination Helper
 
